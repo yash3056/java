@@ -6,16 +6,16 @@
     "configurations": [
         {
             "type": "java",
+            "name": "STACKQUEUE",
+            "request": "launch",
+            "mainClass": "STACKQUEUE",
+            "projectName": "java_96025c5c"
+        },
+        {
+            "type": "java",
             "name": "Current File",
             "request": "launch",
             "mainClass": "${file}"
         },
-        {
-            "type": "java",
-            "name": "Main",
-            "request": "launch",
-            "mainClass": "Main",
-            "projectName": "java_96025c5c"
-        }
     ]
 }
