@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# Specify the Java version
+java_version="jdk-21.0.2_linux-x64_bin.deb"
+
 # Function to delete previously installed JDK
 delete_previous_installation() {
     if dpkg -l | grep -q "oracle-java21-installer"; then
@@ -21,22 +24,22 @@ check_java_installed() {
     fi
 }
 
-# Check if the file already exists
-if [ -f jdk-21.0.2_linux-x64_bin.deb ]; then
+# Step 0: Check if Java is already installed
+check_java_installed
+
+# Check if the file exists before installation
+if [ -f $java_version ]; then
     echo "File is already downloaded"
 else
     # Step 1: Download JDK .deb package
-    wget https://download.oracle.com/java/21/archive/jdk-21.0.2_linux-x64_bin.deb
+    wget https://download.oracle.com/java/21/archive/$java_version
 fi
 
-# Check if the file exists before installation
-if [ -f jdk-21.0.2_linux-x64_bin.deb ]; then
-    # Step 2: Check if Java is already installed
-    check_java_installed
-    
-    # Step 3: Install JDK from the .deb package
+# Check if the file exists
+if [ -f $java_version ]; then
+    # Step 2: Install JDK from the .deb package
     echo "Installing JDK..."
-    sudo dpkg -i jdk-21.0.2_linux-x64_bin.deb
+    sudo dpkg -i $java_version
     if [ $? -eq 0 ]; then
         echo "JDK installation completed."
     else
@@ -44,6 +47,9 @@ if [ -f jdk-21.0.2_linux-x64_bin.deb ]; then
         exit 1
     fi
 
-    # Step 4: Verify installation
+    # Step 3: Verify installation
     java -version
+else
+    echo "Failed to download JDK package."
+    exit 1
 fi
