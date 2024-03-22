@@ -1,12 +1,12 @@
 #!/bin/bash
 
 # Specify the Java version
-java_version="jdk-21.0.2_linux-x64_bin.deb"
+java_version="jdk-22_linux-x64_bin.deb"
 
 # Function to delete previously installed JDK
 delete_previous_installation() {
-    if dpkg -l | grep -q "oracle-java21-installer"; then
-        sudo apt-get purge oracle-java21-installer -y
+    if dpkg -l | grep -q "oracle-java22-installer"; then
+        sudo apt-get purge oracle-java22-installer -y
         echo "Previous JDK installation removed."
     fi
 }
@@ -32,7 +32,7 @@ if [ -f $java_version ]; then
     echo "File is already downloaded"
 else
     # Step 1: Download JDK .deb package
-    wget https://download.oracle.com/java/21/archive/$java_version
+    wget https://download.oracle.com/java/22/latest/$java_version
 fi
 
 # Check if the file exists
